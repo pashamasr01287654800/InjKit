@@ -48,7 +48,7 @@ Enter the output file name (e.g., evil.apk): backdoor.apk
 
 2. exe_injector.sh — Windows EXE Injector
 
-Injects a Windows reverse shell payload into an existing .exe binary.
+Injects a reverse shell payload into a clean EXE file using Metasploit’s msfvenom.
 
 🔧 Features:
 
