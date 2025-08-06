@@ -31,3 +31,19 @@ if [ $? -eq 0 ]; then
 else
     echo "[!] Injection failed. Please check your inputs."
 fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
