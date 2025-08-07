@@ -72,18 +72,7 @@ Enter the output file name (e.g., evil.apk): backdoor.apk
 
 Injects a reverse shell payload into a clean EXE file using Metasploit’s msfvenom.
 
-🔧 Features:
-
-Interactive prompts for LHOST/LPORT and file paths
-
-Detects EXE architecture (x86 or x64) automatically
-
-Selects the appropriate payload
-
-Generates a new EXE with embedded reverse shell
-
-Automatically creates a Metasploit listener script (listener.r)
-
+---
 
 🚀 Example Usage:
 
