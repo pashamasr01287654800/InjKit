@@ -1,94 +1,72 @@
 # InjKit
 
-Payload Injector Toolkit (APK & EXE)
+**Payload Injector Toolkit (APK & EXE)**
 
-InjKit is a lightweight Bash-based toolkit for injecting Metasploit Meterpreter reverse shell payloads into clean Android APK files or Windows EXE binaries using msfvenom.
-
-It consists of two interactive scripts:
-
-apk_injector.sh → injects payloads into APK files (Android).
-
-exe_injector.sh → injects payloads into EXE files (Windows).
-
-
-Both scripts:
-
-Validate LHOST and LPORT.
-
-Let you choose payload type (TCP, HTTP, HTTPS).
-
-Verify file paths before injection.
-
-Automatically generate a Metasploit listener script (listener.r).
-
-
+InjKit is a lightweight Bash-based toolkit for injecting **Metasploit Meterpreter reverse shell payloads** into clean **Android APK** files or **Windows EXE** binaries using `msfvenom`.
 
 ---
 
-📁 Included Scripts
+## 📜 Overview
 
-1. apk_injector.sh — Android APK Injector
+InjKit contains two interactive scripts:
+
+- `apk_injector.sh` → injects payloads into APK files (Android).
+- `exe_injector.sh` → injects payloads into EXE files (Windows).
+
+---
+
+## ⚡ Key Features
+
+- Validates **LHOST** and **LPORT** inputs.  
+- Allows selection of payload type (TCP, HTTP, HTTPS).  
+- Verifies file paths before injection.  
+- Automatically generates a ready-to-use Metasploit listener script (`listener.r`).  
+
+---
+
+## 📁 Included Scripts
+
+### 1. `apk_injector.sh` — Android APK Injector
 
 Injects a reverse shell payload into a clean APK.
 
-🔧 Features:
-
-Interactive prompts for LHOST, LPORT, payload selection.
-
-Validates APK path and output filename.
-
-Supports payloads:
-
-android/meterpreter/reverse_tcp
-
-android/meterpreter/reverse_http
-
-android/meterpreter/reverse_https
-
-
-Generates new APK with embedded payload.
-
-Creates listener.r for Metasploit.
-
-
+**Features:**
+- Interactive prompts for **LHOST**, **LPORT**, and payload selection.  
+- Validates APK path and output filename.  
+- Supported payloads:
+  - `android/meterpreter/reverse_tcp`
+  - `android/meterpreter/reverse_http`
+  - `android/meterpreter/reverse_https`
+- Generates a new APK with embedded payload.  
+- Creates a Metasploit listener script (`listener.r`).  
 
 ---
 
-2. exe_injector.sh — Windows EXE Injector
+### 2. `exe_injector.sh` — Windows EXE Injector
 
 Injects a reverse shell payload into a clean EXE.
 
-🔧 Features:
-
-Interactive prompts for LHOST, LPORT, payload type.
-
-Detects EXE architecture automatically (x86 or x64).
-
-Supports payloads:
-
-windows/meterpreter/reverse_{tcp,http,https}
-
-windows/x64/meterpreter/reverse_{tcp,http,https}
-
-
-Validates EXE path and output filename.
-
-Generates new EXE with embedded payload.
-
-Creates listener.r for Metasploit.
-
-
+**Features:**
+- Interactive prompts for **LHOST**, **LPORT**, and payload type.  
+- Automatically detects EXE architecture (x86 or x64).  
+- Supported payloads:
+  - `windows/meterpreter/reverse_{tcp,http,https}`
+  - `windows/x64/meterpreter/reverse_{tcp,http,https}`
+- Validates EXE path and output filename.  
+- Generates a new EXE with embedded payload.  
+- Creates a Metasploit listener script (`listener.r`).  
 
 ---
 
-🚀 Example Usage
+## 🚀 Usage Examples
 
-APK Injector
+### 🔹 APK Injector
 
+```bash
 chmod +x apk_injector.sh
 ./apk_injector.sh
 
-🖥️ Sample Interaction:
+Sample Interaction:
 
 ===============================
         APK Payload Injector
@@ -106,17 +84,17 @@ Enter the output file name (e.g., evil.apk): backdoor.apk
 [*] Injecting payload into /root/app.apk...
 [+] Payload injected successfully! Saved as: backdoor.apk
 [+] Metasploit listener script saved as: listener.r
-[*] You can run it using: msfconsole -r listener.r
+[*] Run it with: msfconsole -r listener.r
 
 
 ---
 
-EXE Injector
+🔹 EXE Injector
 
 chmod +x exe_injector.sh
 ./exe_injector.sh
 
-🖥️ Sample Interaction:
+Sample Interaction:
 
 ===============================
       EXE Payload Injector
@@ -141,27 +119,27 @@ Enter the output file name (e.g., evil.exe): payload.exe
 [*] Injecting payload (windows/x64/meterpreter/reverse_tcp) into /root/notepad.exe...
 [+] Payload injected successfully! Saved as: payload.exe
 [+] Metasploit listener script saved as: listener.r
-[*] You can run it using: msfconsole -r listener.r
+[*] Run it with: msfconsole -r listener.r
 
 
 ---
 
-🎯 Listener Script (listener.r)
+🎯 Listener Script
 
-Each injection generates a listener.r file with the required commands for Metasploit:
+Each injection automatically generates a listener.r file with the required Metasploit commands:
 
 msfconsole -r listener.r
 
-This automatically starts the handler for the chosen payload.
+This starts the handler for the chosen payload automatically.
 
 
 ---
 
 ⚠️ Notes
 
-Requires Metasploit Framework installed (msfvenom, msfconsole).
+Requires Metasploit Framework (msfvenom, msfconsole).
 
-Works on Linux systems (tested on Kali).
+Designed for Linux systems (tested on Kali).
 
 For educational and authorized penetration testing only.
 
@@ -171,8 +149,5 @@ For educational and authorized penetration testing only.
 
 💬 Feedback
 
-Contributions, improvements, or suggestions are welcome.
-Made for learning, red teaming, and ethical hacking.
-
-
----
+Contributions, suggestions, and improvements are welcome.
+InjKit was created for learning, red teaming, and ethical hacking.
